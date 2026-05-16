@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-bg-main: var(--bg-main);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-card: var(--bg-card);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-header: var(--bg-header);
+  --color-text-main: var(--text-main);
+  --color-text-subtle: var(--text-subtle);
+  --color-border: var(--border);
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-base: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+:root {
+  --bg-main: #ffffff;
+  --bg-subtle: #f9fafb;
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-header: #ffffff;
+  --text-main: #111827;
+  --text-subtle: #6b7280;
+  --border: #e5e7eb;
+}
+
+[data-theme='dark'] {
+  --bg-main: #0f172a;
+  --bg-subtle: #020617;
+  --bg-card: #1e293b;
+  --bg-sidebar: #1e293b;
+  --bg-header: #1e293b;
+  --text-main: #f8fafc;
+  --text-subtle: #94a3b8;
+  --border: #334155;
+}
+
+@layer base {
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  body {
+    @apply font-['Inter',_sans-serif] bg-bg-subtle text-text-main antialiased;
+  }
+
+  a {
+    @apply no-underline text-inherit;
+  }
+
+  button {
+    @apply cursor-pointer border-none outline-none font-[inherit];
+  }
+
+  input {
+    @apply font-[inherit];
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-bg-card border border-border rounded-xl shadow-base;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-hover;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2.5 border border-border rounded-lg mt-1.5 transition-colors duration-200 focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/10;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-text-subtle;
+  }
+}
