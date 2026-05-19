@@ -1,4 +1,4 @@
-# Mini CRM 📊👥
+# Mini CRM 👥
 
 A modern, fast, and secure full-stack customer relationship management (CRM) application built using the MERN stack (MongoDB, Express, React, Node.js). 
 
