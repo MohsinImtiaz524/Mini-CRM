@@ -36,6 +36,9 @@ exports.getLeads = async (req, res) => {
     try {
         const { page = 1, limit = 10, search = '', status = '' } = req.query;
         
+        const pageNum = parseInt(page, 10) || 1;
+        const limitNum = parseInt(limit, 10) || 10;
+
         const user = await User.findById(req.user.id);
         const query = { assignedTo: user.username };
 
@@ -53,16 +56,16 @@ exports.getLeads = async (req, res) => {
 
         const leads = await Lead.find(query)
             .sort({ createdAt: -1 })
-            .limit(limit * 1)
-            .skip((page - 1) * limit)
+            .limit(limitNum)
+            .skip((pageNum - 1) * limitNum)
             .exec();
 
         const count = await Lead.countDocuments(query);
 
         res.json({
             leads,
-            totalPages: Math.ceil(count / limit),
-            currentPage: page,
+            totalPages: Math.ceil(count / limitNum),
+            currentPage: pageNum,
             totalLeads: count
         });
     } catch (err) {

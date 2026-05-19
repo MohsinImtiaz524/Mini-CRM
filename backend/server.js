@@ -18,10 +18,19 @@ app.use(cors({
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/leads', require('./routes/leadRoutes'));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.error('MongoDB Connection Error:', err));
+// Connect to MongoDB with retry logic if it's not running yet
+const connectWithRetry = () => {
+    console.log('Connecting to MongoDB...');
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => console.log('MongoDB Connected Successfully!'))
+        .catch(err => {
+            console.error('MongoDB Connection Error:', err.message || err);
+            console.log('MongoDB might not be running yet. Retrying to connect in 5 seconds...');
+            setTimeout(connectWithRetry, 5000);
+        });
+};
+
+connectWithRetry();
 
 const PORT = process.env.PORT || 5000;
 

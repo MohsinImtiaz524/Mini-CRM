@@ -1,8 +1,6 @@
 # Mini CRM 👥
 
-A modern, fast, and secure full-stack customer relationship management (CRM) application built using the MERN stack (MongoDB, Express, React, Node.js). 
-
-This application provides a highly polished, responsive layout, dynamic visual analytics dashboards, comprehensive leads CRUD management, JWT-based secure user authentication, and a persistent dark mode toggle featuring premium monochromatic SVG icons.
+A modern, fast, and secure full-stack customer relationship management (CRM) application built using the MERN stack (MongoDB, Express, React, Node.js).This application provides a highly polished, responsive layout, dynamic visual analytics dashboards, comprehensive leads CRUD management, JWT-based secure user authentication, and a persistent dark mode toggle featuring premium monochromatic SVG icons.
 
 ---
 
@@ -27,6 +25,12 @@ This application provides a highly polished, responsive layout, dynamic visual a
 - Status filtering controls (*New*, *Contacted*, *Converted*).
 - Dynamic team assignments (leads can be assigned to different registered users).
 - Client-side notification toasts indicating success/error states.
+
+### 🔢 Smart Server-Side Pagination
+- **Clean Table Density**: Configured to display exactly **10 rows per table** on the user interface to ensure optimal readability, high data density, and clean grid structures.
+- **Smart Filter & Search Resets**: Automatically resets the active page to Page `1` whenever full-text search queries or status filter criteria are modified, avoiding blank page states.
+- **Self-Healing Navigation**: Automatically bounds screen states; if the current page becomes empty (e.g., after deleting the last lead on a page), it dynamically auto-adjusts to the previous valid page.
+- **Robust Backend Controls**: Cleanses and parses API request parameters into integer primitives to prevent query indexing errors or floating-point division skips in database queries.
 
 ### 🎨 State-Of-The-Art Premium UI
 - Styled using **Tailwind CSS v4** with a highly curated custom utility system.
@@ -87,10 +91,15 @@ Mini CRM/
 ## ⚙️ Installation & Setup
 
 ### 1. Prerequisites
-Ensure you have the following installed on your machine:
+Ensure you have the following installed and running on your machine:
 - **Node.js** (v16+ recommended)
 - **npm** (v8+ recommended)
 - **MongoDB** (Running locally on `mongodb://127.0.0.1:27017` or a MongoDB Atlas URI)
+  * To enable MongoDB to start automatically at boot and run it immediately:
+    ```bash
+    sudo systemctl enable mongod
+    sudo systemctl start mongod
+    ```
 
 ### 2. Clone and Install Dependencies
 Navigate into the root directory of the project and install all required modules:

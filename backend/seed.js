@@ -32,33 +32,29 @@ const seedDB = async () => {
         const createdUsers = await User.create(users);
         console.log('Test users created.');
 
-        // Create some demo leads for the first user
-        const demoLeads = [
-            {
-                name: 'John Doe',
-                email: 'john@example.com',
-                phone: '123-456-7890',
-                status: 'new',
-                assignedTo: createdUsers[0].username
-            },
-            {
-                name: 'Jane Smith',
-                email: 'jane@enterprise.com',
-                phone: '987-654-3210',
-                status: 'contacted',
-                assignedTo: createdUsers[0].username
-            },
-            {
-                name: 'Robert Brown',
-                email: 'robert@startup.io',
-                phone: '555-0199',
-                status: 'converted',
-                assignedTo: createdUsers[0].username
-            }
+        // Create 25 demo leads for the first user to allow comprehensive pagination testing
+        const statuses = ['new', 'contacted', 'converted'];
+        const demoLeads = [];
+        const names = [
+            'John Doe', 'Jane Smith', 'Robert Brown', 'Emily Davis', 'Michael Johnson',
+            'Sarah Wilson', 'David Jones', 'Jessica Taylor', 'James Miller', 'Karen Anderson',
+            'Thomas Jackson', 'Nancy White', 'Daniel Harris', 'Lisa Martin', 'Matthew Thompson',
+            'Sandra Garcia', 'Mark Martinez', 'Ashley Robinson', 'Paul Clark', 'Donna Rodriguez',
+            'Andrew Lewis', 'Carol Lee', 'Steven Walker', 'Betty Hall', 'Kenneth Allen'
         ];
+        
+        for (let i = 0; i < names.length; i++) {
+            demoLeads.push({
+                name: names[i],
+                email: `${names[i].toLowerCase().replace(' ', '.')}@example.com`,
+                phone: `555-01${10 + i}`,
+                status: statuses[i % statuses.length],
+                assignedTo: createdUsers[0].username
+            });
+        }
 
         await Lead.create(demoLeads);
-        console.log('Demo leads created.');
+        console.log(`Demo leads (${demoLeads.length}) created.`);
 
         console.log('Seeding completed successfully!');
         process.exit();

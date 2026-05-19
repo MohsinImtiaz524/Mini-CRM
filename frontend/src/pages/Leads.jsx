@@ -22,7 +22,13 @@ const Leads = () => {
       const { page } = pagination;
       const response = await api.get(`/leads?page=${page}&limit=10&search=${search}&status=${status}`);
       setLeads(response.data.leads);
-      setPagination(prev => ({ ...prev, totalPages: response.data.totalPages }));
+      
+      const totalPages = response.data.totalPages || 1;
+      setPagination(prev => {
+        // Step back to the max page if current page becomes empty/out-of-bounds (e.g., after deletion)
+        const nextPage = prev.page > totalPages ? totalPages : prev.page;
+        return { ...prev, totalPages, page: nextPage };
+      });
     } catch (err) {
       addToast('Failed to fetch leads', 'error');
     } finally {
@@ -73,6 +79,7 @@ const Leads = () => {
       addToast('Lead added successfully');
       setIsModalOpen(false);
       setFormData({ name: '', email: '', phone: '', status: 'new', assignedTo: '' });
+      setPagination(prev => ({ ...prev, page: 1 })); // Reset to page 1 to see the new lead at the top
       fetchLeads();
     } catch (err) {
       // Handle express-validator errors
@@ -96,33 +103,39 @@ const Leads = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-end mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-[28px] font-bold text-text-main">Leads Manager</h1>
-          <p className="text-text-subtle mt-1">View and manage your customer pipeline</p>
+          <h1 className="text-2xl sm:text-[28px] font-bold text-text-main">Leads Manager</h1>
+          <p className="text-text-subtle text-sm mt-1">View and manage your customer pipeline</p>
         </div>
         <button
-          className="btn btn-primary"
+          className="btn btn-primary w-full sm:w-auto"
           onClick={() => setIsModalOpen(true)}
         >
           + Add Lead
         </button>
       </div>
 
-      <div className="card mb-6 p-4 flex gap-4 items-center">
+      <div className="card mb-6 p-4 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
         <div className="flex-1">
           <input
             type="text"
             className="input-field !mt-0"
             placeholder="Search by name or email..."
             value={filters.search}
-            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+            onChange={(e) => {
+              setFilters({ ...filters, search: e.target.value });
+              setPagination(prev => ({ ...prev, page: 1 }));
+            }}
           />
         </div>
         <select
-          className="input-field !mt-0 w-[200px]"
+          className="input-field !mt-0 w-full sm:w-[200px]"
           value={filters.status}
-          onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+          onChange={(e) => {
+            setFilters({ ...filters, status: e.target.value });
+            setPagination(prev => ({ ...prev, page: 1 }));
+          }}
         >
           <option value="">All Statuses</option>
           <option value="new">New</option>
@@ -204,7 +217,7 @@ const Leads = () => {
 
         <div className="p-4 flex justify-between items-center border-t border-border">
           <p className="text-sm text-text-subtle">
-            Page {pagination.page} of {pagination.totalPages}
+            Page {pagination.page} of {Math.max(pagination.totalPages, 1)}
           </p>
           <div className="flex gap-2">
             <button

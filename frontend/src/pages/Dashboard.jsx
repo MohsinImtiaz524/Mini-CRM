@@ -49,37 +49,37 @@ const Dashboard = () => {
   }, []);
 
   const StatCard = ({ title, value, icon, color, bgColor, suffix = "" }) => (
-    <div className="card p-6 flex-1 min-w-[200px] flex items-center gap-5" style={{ borderLeft: `4px solid ${color}` }}>
+    <div className="card p-6 flex items-center gap-5" style={{ borderLeft: `4px solid ${color}` }}>
       <div 
-        className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
+        className="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0"
         style={{ backgroundColor: bgColor, color }}
       >
         {icon}
       </div>
-      <div>
-        <p className="text-text-subtle text-sm font-medium">{title}</p>
-        <p className="text-[28px] font-bold mt-1 text-text-main">{value}{suffix}</p>
+      <div className="min-w-0">
+        <p className="text-text-subtle text-xs sm:text-sm font-medium truncate">{title}</p>
+        <p className="text-2xl sm:text-[28px] font-bold mt-1 text-text-main truncate">{value}{suffix}</p>
       </div>
     </div>
   );
 
-  if (loading) return <div className="text-text-main">Loading dashboard...</div>;
+  if (loading) return <div className="text-text-main p-4">Loading dashboard...</div>;
 
   return (
     <div className="max-w-[1200px] mx-auto">
-      <div className="mb-8">
-        <h1 className="text-[28px] font-bold text-text-main">Dashboard Overview</h1>
-        <p className="text-text-subtle mt-1">Real-time summary of your lead pipeline</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-[28px] font-bold text-text-main">Dashboard Overview</h1>
+        <p className="text-text-subtle text-sm mt-1">Real-time summary of your lead pipeline</p>
       </div>
 
-      <div className="flex gap-6 flex-wrap mb-10">
-        <StatCard title="Total Leads" value={stats.total} icon={<TotalIcon className="w-6 h-6" />} color="#6366f1" bgColor="#eef2ff" />
-        <StatCard title="New Leads" value={stats.new} icon={<SparklesIcon className="w-6 h-6" />} color="#3b82f6" bgColor="#eff6ff" />
-        <StatCard title="Converted" value={stats.converted} icon={<CheckIcon className="w-6 h-6" />} color="#10b981" bgColor="#ecfdf5" />
-        <StatCard title="Conversion Rate" value={stats.conversionRate} suffix="%" icon={<TrendingUpIcon className="w-6 h-6" />} color="#8b5cf6" bgColor="#f5f3ff" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-10">
+        <StatCard title="Total Leads" value={stats.total} icon={<TotalIcon className="w-5 h-5 sm:w-6 sm:h-6" />} color="#6366f1" bgColor="#eef2ff" />
+        <StatCard title="New Leads" value={stats.new} icon={<SparklesIcon className="w-5 h-5 sm:w-6 sm:h-6" />} color="#3b82f6" bgColor="#eff6ff" />
+        <StatCard title="Converted" value={stats.converted} icon={<CheckIcon className="w-5 h-5 sm:w-6 sm:h-6" />} color="#10b981" bgColor="#ecfdf5" />
+        <StatCard title="Conversion Rate" value={stats.conversionRate} suffix="%" icon={<TrendingUpIcon className="w-5 h-5 sm:w-6 sm:h-6" />} color="#8b5cf6" bgColor="#f5f3ff" />
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card p-6">
           <h3 className="mb-6 font-semibold text-text-main">Leads by Status</h3>
           <div className="w-full h-[300px]">
