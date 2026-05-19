@@ -4,6 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   Cell, PieChart, Pie 
 } from 'recharts';
+import { TotalIcon, SparklesIcon, CheckIcon, TrendingUpIcon } from '../components/Icons';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -51,7 +52,7 @@ const Dashboard = () => {
     <div className="card p-6 flex-1 min-w-[200px] flex items-center gap-5" style={{ borderLeft: `4px solid ${color}` }}>
       <div 
         className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-        style={{ backgroundColor: bgColor }}
+        style={{ backgroundColor: bgColor, color }}
       >
         {icon}
       </div>
@@ -72,10 +73,10 @@ const Dashboard = () => {
       </div>
 
       <div className="flex gap-6 flex-wrap mb-10">
-        <StatCard title="Total Leads" value={stats.total} icon="📊" color="#6366f1" bgColor="#eef2ff" />
-        <StatCard title="New Leads" value={stats.new} icon="✨" color="#3b82f6" bgColor="#eff6ff" />
-        <StatCard title="Converted" value={stats.converted} icon="✅" color="#10b981" bgColor="#ecfdf5" />
-        <StatCard title="Conversion Rate" value={stats.conversionRate} suffix="%" icon="📈" color="#8b5cf6" bgColor="#f5f3ff" />
+        <StatCard title="Total Leads" value={stats.total} icon={<TotalIcon className="w-6 h-6" />} color="#6366f1" bgColor="#eef2ff" />
+        <StatCard title="New Leads" value={stats.new} icon={<SparklesIcon className="w-6 h-6" />} color="#3b82f6" bgColor="#eff6ff" />
+        <StatCard title="Converted" value={stats.converted} icon={<CheckIcon className="w-6 h-6" />} color="#10b981" bgColor="#ecfdf5" />
+        <StatCard title="Conversion Rate" value={stats.conversionRate} suffix="%" icon={<TrendingUpIcon className="w-6 h-6" />} color="#8b5cf6" bgColor="#f5f3ff" />
       </div>
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6">

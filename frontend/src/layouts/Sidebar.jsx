@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { DashboardIcon, LeadsIcon } from '../components/Icons';
 
 const Sidebar = () => {
   const { logout, user } = useAuth();
@@ -12,8 +13,8 @@ const Sidebar = () => {
   };
 
   const navItems = [
-    { name: 'Dashboard', path: '/dashboard', icon: '📊' },
-    { name: 'Leads', path: '/leads', icon: '👥' },
+    { name: 'Dashboard', path: '/dashboard', icon: <DashboardIcon className="w-5 h-5" /> },
+    { name: 'Leads', path: '/leads', icon: <LeadsIcon className="w-5 h-5" /> },
   ];
 
   return (

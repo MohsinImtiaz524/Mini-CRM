@@ -55,8 +55,13 @@
     @apply cursor-pointer border-none outline-none font-[inherit];
   }
 
-  input {
-    @apply font-[inherit];
+  input, select {
+    @apply font-[inherit] bg-bg-card text-text-main;
+  }
+
+  option {
+    background-color: var(--bg-card);
+    color: var(--text-main);
   }
 }
 
@@ -74,7 +79,7 @@
   }
 
   .input-field {
-    @apply w-full px-3 py-2.5 border border-border rounded-lg mt-1.5 transition-colors duration-200 focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/10;
+    @apply w-full px-3 py-2.5 border border-border rounded-lg mt-1.5 bg-bg-card text-text-main transition-colors duration-200 focus:outline-none focus:border-primary focus:ring-3 focus:ring-primary/10;
   }
 
   .label {
