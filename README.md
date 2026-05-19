@@ -1,4 +1,4 @@
-# Mini CRM 👥
+# Mini CRM Lead Manager👥
 
 A modern, fast, and secure full-stack customer relationship management (CRM) application built using the MERN stack (MongoDB, Express, React, Node.js).This application provides a highly polished, responsive layout, dynamic visual analytics dashboards, comprehensive leads CRUD management, JWT-based secure user authentication, and a persistent dark mode toggle featuring premium monochromatic SVG icons.
 
